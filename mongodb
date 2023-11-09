@@ -1,0 +1,82 @@
+show dbs------list of databases
+
+use db_name----in order to switch db
+
+show collections----in order to show the collections
+
+db.dropDatabase()
+
+db------will give you the current db you are using
+
+db.users.insertOne({key:value});---------in order to insert data into db
+
+
+db.users.find();----------in order to list all the data in the db
+
+db.users.insertMany();-------------in order to insert many data
+
+db.users.find().limit(2)------in order to limit the users details
+
+db.users.find().sort({name:1}).limit(2)----------in order to sort fields in the db you would specify fieldname and the value of it may be 1 or -1 based on the sorting order 1 represents the ascending and -1 represents the descending order 
+
+db.users.find().skip(1).limit(2)----------if you want to skip th specific amount of data then we can go for this command
+
+db.users.find({name:"vignesh"})----------in order to find the specific users name
+
+db.users.find({name:"vignesh"},{name:1,age:1,_id:0})------If you want to select the specific fields in the db then you can specifuy it in the second argument and the values can be 1 or 0. 1 represents that the field is need and 0 represents not need
+
+db.users.find({name:{$eq:"vignesh"}})--------in order to get the specific sequence from the db
+
+db.users.find({name:{$ne:"vignesh"}})--------in order to get the specific sequence from the db which is not there
+
+db.users.find({age:{$gt:13}})-------$gt represents the greater than symbol
+
+db.users.find({age:{$gte:13}})-------$gt represents the greater than or equal to symbol
+
+db.users.find({age:{$lt:13}})-------$gt represents the lesser than symbol
+
+db.users.find({age:{$lte:13}})-------$gt represents the lesser than or equal symbol
+
+db.users.find({name:{$in:["vignesh"]}})-------in order to find the list of users
+
+db.users.find({name:{$nin:["vignesh"]}})-------in order to find the list of users which is not in 
+
+db.users.find({age:{$exists:true}})----in order to find the required fields in the db,it also returns the fields even though it is null
+
+db.users.find({age:{$lt:55,$gt:87}})------if you want to check different functionalities then u can use comma separated statements
+
+db.users.find({$and:[{age:4},{name:"vif"}]});---------in order to find the data using and symbol 
+
+db.users.find({$or:[{age:4},{name:"vif"}]});---------in order to find the data using or symbol 
+
+db.users.find({age:{$not:18}})=-----------not is used to specify the data that is accept it
+
+db.users.find({$expr:{$gt:["age","oldage"]}});------in order to compare the things we go for expr
+
+db.users.findOne()----returns the first one which gets matched
+
+db.users.countDocuments({age:{$lt:57}});------returns the row size
+
+db.users.updateOne({age:22},{$set:{age:23}})-----------in order to update the users table
+
+db.users.updateOne({id:____},{$inc:{age:3}});-------in order to increment the data
+
+db.users.updateOne({_id:___},{$push:{aim:"Table tennis"}})-----in order to push into array
+
+db.users.updateOne({_id:___},{$pull:{aim:"Table tennis"}})-----in order to remove from array
+
+db.users.updateMany({address:{$exists:true}},{$unset:{address:""}})
+-----in order to unset the changes
+
+db.users.replaceOne({name:"shyam"},{name:"shyam007"})------It actually replaces the entire object with the specified object.
+
+db.users.deleteOne({name:"vignesh"})----in order to delete the specific data
+
+db.users.deleteMany({age:{$exists:false})------in order to find the users and delete everything
+
+
+
+
+
+
+

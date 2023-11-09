@@ -1,0 +1,116 @@
+mongodb----------------------
+
+orm-prisma,sequelize-----------------------
+
+fastify need to implement
+
+sql,leetcode,hackerrank
+
+microservice,monolithic
+
+vue
+
+grpc,rpc
+
+uat
+
+frontend-post-------------------------
+
+new tech
+
+english phrase
+
+github commands----pr
+
+cache------------------------
+
+triggers
+
+elastic search,logstash
+
+mongoose--------------------------------
+
+stagging,local
+
+web3------new tech
+
+preventDefault()
+
+eslint
+
+wrap things----flex
+
+unit testing
+
+authentiaction google,facebook
+
+github cd/ci,deployment
+
+payment gateway,network connection data response.
+
+
+----------------------------------------------
+bull js
+production env
+dev env
+payment gateway payu patym razorpay stripe------mobile checkout
+microservice
+clusters and worker threads and same ports
+winston library
+deployments pipelines jetkins
+rabbudmq
+test-driven architecture
+mocha
+jest
+unit testing
+stream hls m3u8
+nodescheduler,nodecrone
+xano-response caching----------------------------
+
+
+apache kafka
+Rabbitmq
+REdis-pub/sub
+Postgres-pub/sub
+
+
+rxjs
+
+production/dev
+---------------
+domain name should can be changed
+third party
+db configuration
+api call
+nodemon usage and security purpose
+
+triggers
+socket
+tunneling
+
+prisma
+
+7/21/2023	Task 1-architecture	Act1->microservice architecture,monolithic architecture		2
+	Task 2-winston library	Act1->winston library		0.5
+	Task 3-rabbitMQ	Act1->concepts and implementation of rabbitMQ	 	2.5
+	Task 4-test-driven architecture	Act1->test driven architecture		1
+	Task 5-testing	Act1->jest and mocha		1.5
+				
+7/24/2023	Task 1-streams	Act1->streaming using hls		2.5
+	Task 2-node concepts	Act1->node scheduler and node cron		1
+	Task 3-deployments 	Act1->deployments and pipelines		4
+				
+7/25/2023	Task 1-payment gateway	Act1->razorpay gateway		7.5
+				
+7/26/2023	Task 1-payment gateway	Act1->payu gateway		7.5
+
+
+typeorm
+drizzle
+
+
+https://1377x.to/
+
+https://dev.to/karanpratapsingh/system-design-whatsapp-fld
+
+

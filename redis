@@ -1,0 +1,71 @@
+after installing in order to start the server
+----------redis-server
+
+
+after starting the server in order to start the client 
+----------redis-cli
+
+if you want to quit use command--------quit
+
+
+
+operations:
+
+---set key value----if you want to store and value pair u can store using set
+
+----get key------if you want to get the value of the specific key you can use this command
+
+----del key-----to delete the key
+
+----exists key------if you want to check exixstence using this command which returns integer 0 or 1
+
+----keys *------in order to get all the keys
+
+----flushall-----to delete all the key value pairs
+
+-----ttl key----in order to know the expiry of key 
+
+-----expire key seconds--------in order to set expire for the key you can use this
+
+------setex key seconds value----another way to set expire
+
+----lpush key value------in order to push elements in the begining in the list
+
+-----lrange key startIndex endIndex----in order to get the list of data from startIndex to endIndex where -1 in endIndex should be specified to get all the elements
+
+-----rpush key value------push the element to the list at the end
+
+------lpop key------removes the first element from the list
+
+------rpop key-----removes the last elements from the list
+
+----sadd key value----in order to add elements to the set 
+
+---smembers key-----in order to list all the members of the set 
+
+-----srem key value-----in order to remove the element from the set
+
+
+*********Hashset stores in the form of key value pairs where values can be of key value pairs**********
+
+-------hset key key value------where you would be storing json value in key to add into hashes
+
+------hget key key------in order to get value for the inner key
+
+------hgetall key-----It will get all the key value pairs in order as 1.key 2.value ,....
+
+------hdel key key------if you need to delete any particular property from the hashes 
+
+-------hexists key key-------if you need to check key is present inside key
+
+
+
+
+
+
+
+
+
+
+
+

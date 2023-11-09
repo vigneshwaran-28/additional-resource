@@ -1,0 +1,597 @@
+pweb-progressive
+centralization server----exchnage
+casino-vking,evolution
+
+markets gets pinned
+
+sports->tournament->match->market->runners
+
+marque---for announcements
+
+Admin panner=banner
+
+Aggregators--------actual app from differe
+
+white label-super admin,admin,staff
+
+white label-0 
+
+recaptcha---site of recaptcha
+
+hattrick games
+
+khelo yaar
+
+ssexch.io,yolo247
+
+only score------live stream provider
+
+odds=====back-win,lay-lose
+
+franchise
+
+odds-doubt
+
+match odds only visible
+
+lion market--100% profit
+
+market-volumes and odds
+
+fancy market-percentage profit and runs
+
+book position ---only 3 values above and below
+
+back and lay ---need to get
+
+ball running,low liquidity,cancel are the various markets status
+
+average==>amt/odds+1;
+
+google analytics
+
+market rules are like i symbol
+
+grey hount
+
+upcoming to inplay odds are confused---if you (keep alive) gets on the bet even if it is changing 
+
+market type---won by 5
+
+market category-fancy,market odds
+
+cooling period
+
+pm package
+
+line market--100% profit
+
+
+
+
+pinned data whether it should be market name
+
+market_id should be Int because user_configs pinned array is of type integer
+
+bank_details id should be auto increement
+
+
+matched_time-----event name-----result
+
+filters need to be implemented
+
+--------------------------
+
+whitelabel exchnage,owner exchnage,user_bets
+----------------------------------------------
+
+user.profile.dao has to be corrected-----comments
+
+wl exchnge control--------->market runner id is not present in market_runners
+
+code==================================================
+
+
+import { API_METHODS } from "../../../interface/api.interface";
+import { IRouteOptions } from "../../../interface/fatstify.interface";
+import { authUser } from "../../../utils/preHandlers/authPrehandler";
+import ExchangeController from "./exchange.controller";
+import { getRules } from "./exchange.schema";
+
+const exchangeController = new ExchangeController();
+
+
+const Routes: IRouteOptions<{
+    Body: any;
+    Params: any;
+    Querystring: any;
+}>[] = [
+        {
+            url: "/getMatchRules",
+            handler: exchangeController.getMatchRules,
+            preHandler: [authUser],
+            schema: getRules,
+            method: API_METHODS.GET,
+        },
+    ]
+
+export default Routes;
+
+
+
+export const getRules = {
+    description: "The api fetches the rules info",
+    summary: "The api used for fetching rules info",
+    tags: ["exchange"],
+    headers: {
+        type: "object",
+        properties: {
+            Authorization: {
+                type: "string",
+            },
+        },
+        required: ["Authorization"],
+    },
+    queryString: {
+        type: 'object',
+        properties: {
+            match_type_id: { type: "number" },
+            market_type: { type: "string" }
+        }
+    },
+    response: {
+        200: {
+            type: "object",
+            properties: fmt.getSwaggerResponse({
+                type: "object",
+                properties: {
+                    market_rules: {
+                        type: "string"
+                    }
+                }
+            })
+        }
+    }
+};
+
+
+
+
+redis://localhost:6379
+
+
+----------------------------------------------------------//
+public getMatchRules = async (
+        request: FastifyRequest<{
+            Querystring: { match_type_id: number; market_type: market_types };
+        }>,
+        reply: FastifyReply
+    ) => {
+        const { match_type_id, market_type } = request.query;
+        const rules = await exchangeDao.getRulesForMatch(match_type_id, market_type);
+        reply.status(200).send(
+            fmt.formatResponse(rules)
+        );
+    };
+    
+public async getRulesForMatch(match_type_id: number, market_type: market_types) {
+    return await client.market_rules_management.findFirst({
+      select: {
+        market_rules: true
+      },
+      where: {
+        match_type_id,
+        market_type
+      }
+    });
+  }
+  
+--------------------------------------------------------------
+  
+  
+  
+my markets model-----------user bets,market expo or potential loss
+left side nav---------------caching,table?
+notification-----table? need to add notification data in various api's,push notfications and socket needed
+announcements------table? different categories
+
+Vignesh:
+Markets modal--------List of markets which are bet placed
+Left side navigation--------search list of various sports,tournaments,matches
+Notifications---------event related notification
+
+    
+Name of holder:VIGNESHWARAN RANGANATHAN
+Bank Name:ICICI Bank
+Acc no:605301536993
+IFSC code:ICIC0006053
+Bank Branch:COIMBATORE MILL ROAD BRANCH
+  
+  
+notification type should be changed to nullable
+
+
+in play need to integrate--------
+upcoming need to go in play--------
+pinned need to integrate-------
+market api-----
+Date need to send---
+
+need to migrate
+
+need to give estimation time for results and reverts
+
+need to remove whitelable in api
+
+need to add category type in announcements
+
+need to check socket connect for announcements
+
+
+we need to authenticate for mobile and desktop  
+we need to send the user token for the authentication 
+the user token is consider as the player token 
+wallet is available balance 
+available is total balance 
+status is 1 -> error and 0 -> success  
+the bet result will be based the users irrespective of the number of bets placed 
+9999_1234 as user id -->which is user id 1234?
+
+
+whitelabel id is problem
+
+
+ const query = 
+    `SELECT sport_id as id,sports_name as name,sport_id as sport_tournament_id,'sports' as type,null as icons,null as match_specific_sport_id
+      FROM public.master_sports WHERE sports_name ilike '%${search}%'
+    
+    union 
+    
+    SELECT public.master_tournaments.tournament_id, public.master_tournaments.tournament_name,sport_id, 'tournaments', public.wl_tournament_configs.icon,null 
+      FROM master_tournaments
+      left join 
+      public.wl_tournament_configs on public.wl_tournament_configs.tournament_id = public.master_tournaments.tournament_id
+      where public.master_tournaments.tournament_name ilike '%${search}%' 
+    
+    union 
+    
+ SELECT match_id, match_name,public.master_matches.tournament_id ,'match',public.wl_tournament_configs.icon,public.master_tournaments.sport_id  
+      FROM public.master_matches 
+      left join
+      public.master_tournaments on  public.master_tournaments.tournament_id=public.master_matches.tournament_id
+        left join 
+      public.wl_tournament_configs on public.wl_tournament_configs.tournament_id = public.master_tournaments.tournament_id
+	 where public.master_matches.match_name ilike  '%${search}%'`;
+	 
+	 
+	 
+---------------------------
+
+
+
+export async function getFormatSearchResults(data: ISearchResults[], whitelabel_id: string) {
+  const result = [];
+  const tournament = new Map();
+  const sport = new Map();
+  const match = new Map();
+
+  for (const searchData of data) {
+    if (searchData.type == 'tournaments') {
+
+      const link = '/sports/' + searchData.sport_tournament_id + "/" + searchData.id;
+      tournament.set(searchData.id, { ...searchData, link });
+    }
+    else if (searchData.type == 'sports') {
+      const link = '/sports/' + searchData.sport_tournament_id;
+      sport.set(searchData.id, { ...searchData, link });
+    }
+    else if (searchData.type == 'match') {
+      const link = '/sports/' + searchData.match_specific_sport_id + "/" + searchData.sport_tournament_id + "/" + searchData.id;
+      match.set(searchData.id, { ...searchData, link });
+    }
+  }
+  const collection_name = await exchangeDao.getCollectionId(whitelabel_id);
+
+  for (const [id, tournament_data] of tournament.entries()) {
+    if (!tournament_data.icons) {
+      const iconUrl = getSportIconUrl(collection_name, tournament_data.sport_tournament_id);
+      tournament_data.icons = iconUrl;
+      if (sport.has(tournament_data.sport_tournament_id) && !sport.get(tournament_data.sport_tournament_id).icons) {
+        sport.set(tournament_data.sport_tournament_id, { ...sport.get(tournament_data.sport_tournament_id), icons: iconUrl });
+      }
+    }
+    else
+      tournament_data.icons = {
+        icon_link_desktop: tournament_data.icons,
+        icon_link_mobile: tournament_data.icons,
+      };
+    result.push(tournament_data);
+  }
+
+  for (const [id, sport_data] of sport.entries()) {
+    if (!sport_data.icons) {
+      const iconUrl = getSportIconUrl(collection_name, sport_data.sport_tournament_id);
+      sport_data.icons = iconUrl;
+    }
+    result.push(sport_data);
+  }
+
+  for (const [id, match_data] of match.entries()) {
+    if (!match_data.icons) {
+      if (tournament.has(match_data.sport_tournament_id)){
+        match_data.icons = tournament.get(match_data.sport_tournament_id).icons;
+      }
+      else{
+        match_data.icons = getSportIconUrl(collection_name,match_data.match_specific_sport_id);
+      }
+    }
+    result.push(match_data);
+  }
+  return result;
+}
+
+-----------------------------------		
+
+
+icon need to clarify
+
+
+-----------------------------------
+
+gap---->what are the required fields in the body
+how are those fields called
+helper function signature
+dao function --->what are the modal we gonna need
+where to store the data
+documentation go through
+
+crypto need to install
+
+need to check the imported packages like crypto and axios
+
+if we are deducting amount from available balance and that is not sufficient to deduct hence from bonus amt so what we will be returning either bonus or available
+
+how will i know that game is won or lost
+
+token need to store in redis
+
+---------------------------------------------------------------
+
+**************************************
+
+-------list of ip's only allowed to request and response
+
+-------public key need to be shared to gap,all the headers will be signed with the private key and need to verify with their public key they provided
+
+--------need to set ip's to request
+
+--------what is lobby,redirect url
+
+--------user's balance need to check whether he can place bet or not will be checked by whom
+
+--------what is round id,req id
+
+
+
+*******************questions********************
+
+--------what is the data that need to be passed to encrypt rsa
+
+--------
+
+here there is only gameid there is no runners right?
+
+login----->link there----->
+
+token need to store
+
+result
+
+only deduct the balance
+
+
+
+SELECT * FROM public.master_markets where market_status=4 
+and winner is null and central_id is not null;
+
+-----------------------------??????????????????
+
+need to know what are the nullable fields
+
+git stash for migrations
+
+7 4 1
+
+seeders need to execute
+
+http://localhost:4000/gap/operator/game-list
+
+
+{
+      "operator_id": "string",
+    "page": "string",
+    "page_size": "100"
+}
+
+
+token verification has to be done
+
+operator_id is required or not to add in db table
+
+
+
+wallet transactions need to update
+
+migrations need to correct
+
+model name
+
+gap -env
+
+
+bank name,account holder name
+
+
+klr-274
+
+
+//-------------
+
+if (bet_info?.is_won) {
+                const creditAmount = (walletData.available_balance - requestBody.rollbackAmount - bet_info.liability);
+                if (walletData?.bonus_limit > bonus_amount) {
+                    const deduction = walletData.bonus_limit - bonus_amount;
+                    if (deduction > creditAmount) {
+                        bonus_amount += creditAmount;
+                    }
+                    else {
+                        bonus_amount = walletData.bonus_limit;
+                        available_balance += (creditAmount - deduction);
+                    }
+                }
+                else {
+                    available_balance += creditAmount;
+                }
+                const data = {
+                    user_id: +requestBody.userId,
+                    available_balance: available_balance,
+                    bonus_amount: walletData.bonus_amount,
+                    total_balance: available_balance + walletData.bonus_amount - (walletData.total_exposure),
+                    total_exposure: walletData.total_exposure,
+                }
+                response = await gapDao.updateUserWallet(data);
+
+            }
+            else {
+                const creditAmount = (walletData.available_balance + requestBody.rollbackAmount - bet_info.liability);
+                if (walletData?.bonus_limit > bonus_amount) {
+                    const deduction = walletData.bonus_limit - bonus_amount;
+                    if (deduction > creditAmount) {
+                        bonus_amount += creditAmount;
+                    }
+                    else {
+                        bonus_amount = walletData.bonus_limit;
+                        available_balance += (creditAmount - deduction);
+                    }
+                }
+                else {
+                    available_balance += creditAmount;
+                }
+                const data = {
+                    user_id: +requestBody.userId,
+                    available_balance: available_balance,
+                    bonus_amount: walletData.bonus_amount,
+                    total_balance: available_balance + walletData.bonus_amount - walletData.total_exposure,
+                    total_exposure: walletData.total_exposure,
+                }
+                response = await gapDao.updateUserWallet(data);
+            }
+
+
+docker logs --tail 1000 -f 
+
+need to see cron for game list
+
+gap error codes
+
+need to check bank details add
+
+
+game list and crons
+
+
+socket announcement
+
+pl analysis skip take pagination
+
+
+need to update game list in gap
+
+logo,matches,tournaments whitelable configs all the neccessary data top nav
+
+pl-analysis need to update schema
+
+update skip
+
+need to look on crons 
+
+ip whitelisting
+
+flatmap
+
+udp protocol
+
+
+wlmarketconfigs-------->need to check commision and cashback
+
+commision is for profit deduction
+
+cashback is for negative
+
+
+
+market_id-------->
+	1.user bets------>
+		1----->wallet data----->sum_amt---->sum_amt>0---->commision else cashback update wallet and wallet transaction.
+		2----->wallet data
+
+	2.user bets------>
+		2----->wallet data
+		1----->wallet data
+
+
+
+
+git stash is there
+
+edge cases need to ask whether the bonus amt should be reduced if there is no amt left what need to be done 
+
+bet_status should be null
+
+need to change pr changes for market results
+
+                            OR: [{ bet_current_status: 'MATCHED' }, { bet_current_status: 'UNMATCHED' }],
+
+ public async updateUnMatchedBetResult(bet_id: number, isRevert: boolean) {
+        const bet_status = (isRevert) ? null : 'LAPSED';
+        await client.user_bets.update({
+            where: {
+                bet_id
+            },
+            data: {
+                bet_status,
+            }
+        });
+    }
+    
+     if (e.bet_current_status == 'UNMATCHED') {
+            isUnmatched = true;
+            available_balance -= e.potential_loss;
+            await ownerMarketsDao.updateUnMatchedBetResult(e.bet_id, false);
+        }
+        
+         isUnmatched = false;
+         
+         const wallet_transactions = {
+            user_id: e.user_id,
+            amount: (isProfit) ? e.potential_profit : -e.potential_loss,
+            transaction_type: (isUnmatched) ? 'CREDIT' : (isProfit) ? "CREDIT" : "DEBIT",
+            transaction_mode: 'BET',
+            bet_id: e.bet_id,
+            running_balance: total_balance,
+            narration: 'bet settled',
+            updated_at: new Date()
+        }
+
+
+token is available and what need to do is we need to authenticate using auth schema users table and grant them access using supabase api's
+
+
+env variables needed
+
+market status if close need to call the api's	
+
+crons updateMarketStatus ws.ts onMessage 115	
+
+
+

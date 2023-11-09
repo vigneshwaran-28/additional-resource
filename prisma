@@ -1,0 +1,30 @@
+npx prisma init-----In order to setup package for prisma
+
+npx prisa studio-------In order to display all the models
+
+npx prisma migrate dev----------In order to create migration
+
+npx prisma generate----------in order to generate migrations we use this commands
+
+npx prisma db push------------in order to sync with the db
+
+prisma.users.create({data:{name:'vignesh'}});-------in order to create single record
+
+prisma.users.createMany({data:[{name:"gokul"},{name:"shyam"}]})-----in order to create many records
+
+skipDuplicates:boolean-------in order to skip the duplicates
+
+findUnique({where:{email:''}})------in order to find the single record
+
+findFirst returns the data that is actually being matched first
+
+functions
+---------------------
+endsWith:'',startsWith-----functions to check the specific criteria
+
+gt-----greater than
+
+equals-----in order to check the equality
+
+
+

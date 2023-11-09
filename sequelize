@@ -1,0 +1,13 @@
+
+npx sequelize-cli model:generate --name modelname --attributes name:string,age:number -----------in order to generate model and attributes	 	
+
+npx sequelize-cli init-------------in order to bring the folder structure
+
+npx sequelize-cli db:migrate------in order to sync with the db
+
+
+npx sequelize-cli db:migrate:undo------in order to unsync with the db
+
+
+
+
